@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            width: 50%; /* Равные ширины столбцов */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a.button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF;
+            padding: 10px 20px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        a.button:hover {
+            background-color: #0056b3;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Results</h1>
+    {% if result %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+            </tr>
+            {% for book in result %}
+                <tr>
+                    <td><a href="{{ url_for('book_detail', book_id=book[0]) }}">{{ book[1] }}</a></td>
+                    <td>{{ book[2] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="center">Not found :(</p>
+    {% endif %}
+    <div class="center">
+        <a href="{{ url_for('index') }}" class="button">Back to all books</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 4px;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            margin-bottom: 8px;
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        .search-form {
+            text-align: center;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 10px auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td:nth-child(2) {
+            width: 50%;
+        }
+
+        .add-book-button {
+            display: block;
+            width: 120px;
+            margin: 10px auto;
+            padding: 8px;
+            font-size: 14px;
+            text-align: center;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Books</h1>
+
+    <div class="search-form">
+        <form action="{{ url_for('search') }}" method="post">
+            <label for="keyword">Find by author or name:</label>
+            <input type="text" name="keyword">
+            <input type="submit" value="Find">
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+        </tr>
+        {% for book in books %}
+            <tr>
+                <td><a href="{{ url_for('book_detail', book_id=book[0]) }}">{{ book[1] }}</a></td>
+                <td>{{ book[2] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{{ url_for('add_book') }}" class="add-book-button">Add Book</a>
+</body>
+</html>

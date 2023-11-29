@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="submit"],
+        textarea,
+        select {
+            margin-bottom: 16px;
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        #custom_genre {
+            display: none;
+        }
+
+        #custom_genre.active {
+            display: inline-block;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .center {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        // Change genre input methods
+        function changeGenreInput() {
+            var genreSelect = document.getElementById('genre');
+            var customGenreInput = document.getElementById('custom_genre');
+
+            if (genreSelect.value === 'custom') {
+                customGenreInput.classList.add('active'); // Activate custom genre input
+                customGenreInput.value = '';  // Clearing custom genre input
+            } else {
+                customGenreInput.classList.remove('active'); // Disable custom genre input
+            }
+        }
+
+        function setCustomGenre() {
+            var genreSelect = document.getElementById('genre');
+            var customGenreInput = document.getElementById('custom_genre');
+
+            if (genreSelect.value === 'custom') {
+                genreSelect.value = customGenreInput.value; // Changing list genres to custom genre
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Add new book</h1>
+    <form action="{{ url_for('add_book') }}" method="post" onsubmit="setCustomGenre()">
+        <label for="title">Name:</label>
+        <input type="text" name="title" required>
+
+        <label for="author">Author:</label>
+        <input type="text" name="author" required>
+
+        <label for="description">Description:</label>
+        <textarea name="description"></textarea>
+
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre" onchange="changeGenreInput()">
+            <option value="" selected disabled hidden>Select or enter a genre</option>
+            {% for genre in genres %}
+                <option value="{{ genre }}">{{ genre }}</option>
+            {% endfor %}
+            <option value="custom">Custom genre</option>
+        </select>
+
+        <input type="text" id="custom_genre" name="custom_genre" placeholder="Enter genre">
+
+        <input type="submit" value="Add book" class="button">
+    </form>
+    <div class="center">
+        <a href="{{ url_for('index') }}" class="button">Back to all books</a>
+    </div>
+</body>
+</html>
