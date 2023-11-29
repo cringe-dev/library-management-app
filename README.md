@@ -56,7 +56,7 @@ Enjoy managing your virtual library with ease!
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/library-management-app.git
+   git clone https://github.com/cringe-dev/library-management-app.git
    cd library-management-app
 
 2. **Install Dependencies**
